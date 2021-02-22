@@ -1,0 +1,7 @@
+2.5 Punteros a funciones
+
+Tarea 1 - Check if the function pointers and the function calls give the same output - They do, all return 8.
+Tarea 2 - Change the function pointer to point at resta1(). The result is now 4.
+Tarea 3 - Interchange function types, assign suma1() to p_oper2. Even though they are not the same type it still works. I don't understand why, is it due to compiler optimization, or that all the parameters is sent to the stack?
+
+
