@@ -1,0 +1,5 @@
+tareas.c:57:6:ESP8266_CONFIGURACION_INICIAL	24	static
+tareas.c:81:6:ESP8266_Task_Configuracion	32	static
+tareas.c:116:6:cleanResponse	48	static
+tareas.c:164:6:ESP8266_Task_Estresador	16	static
+tareas.c:173:6:ESP8266_TEST_time	16	static

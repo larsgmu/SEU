@@ -1,0 +1,2 @@
+utility.c:14:24:makeFreeRtosPriority	24	static
+utility.c:25:5:_write	32	static

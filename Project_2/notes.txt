@@ -1,0 +1,118 @@
+FUNCTIONAL LAYOUT
+
+DEFINE LOCAL = 1
+DEFINE ONLINE = 0
+DEFINE ERROR = 1
+DEFINE OK = 0
+GLOBALS:
+
+ALARM = 1
+MODE = LOCAL/ONLINE
+NETWORK_STATUS = OK
+
+######### NetworkComTask ##############
+
+If !ALARM MODE (needs semaphore)
+    
+		
+	** MODE Local **
+	  - getTime() every 10 seconds
+	  - Write to time_buffer
+	  
+	  
+	  
+	** MODE online **  
+	  
+	* queryContext()
+	* parse data (get LEDS, BUZZER, alarm_reason)
+	* Update global variables
+	* updateContext with temperature
+	* if buzzer = 1
+		- ALARM MODE = 1 -> start timer, timer_done -> ALARM_MODE = 0
+	* set_lights()
+	* ERROR HANDLING AND DETECTION
+		
+
+
+##############################
+
+
+########## Temperature task ############
+	
+	** MODE Local **
+	  	- getTempFromSensor()
+	  	- set lights
+	    - ALARM MODE if temp>35
+	  	
+	** MODE Online **
+		- getTempFromSensor()
+		- save temp to temperature_buffer
+##################################
+
+
+######### DISPLAY TASK ##########
+
+		** MODE Local ** 
+		- read global time buffer
+		- read global temperature buffer
+		- print to display
+		- if ALARM, PRINT ALARM FROM TEMP>35
+		
+		** Mode online **
+		PRINT ONline mode, connection OK.
+		IF ALARM DISPLAY ONLINE AND USER CALLED IT
+
+########################################
+
+
+######### ALARM TASK ##################
+
+	** AQUIRE SEMAPHORE **
+	- Send updateContext to chosen student: LEDS(1001), Buzzer(1), and source_alarm(LYK)
+	
+
+
+
+#################### BUTTON 1 ######################
+
+Button 1 changes mode between local and connected y viceversa
+
+		* global variable MODE set to ONLINE or LOCAL mode
+
+LOCAL: 
+- Like project 1
+- Get time from worldclockapi (time task)
+- Get temperature (temp task)
+- Print to serial display (display task)
+
+CONNECTED:
+- Get leds and and buzzer data from contextbroker
+- Publish temperature to context broker
+- check for alarm
+#################### /BUTTON 1/ ###############################
+
+
+
+
+
+################## BUTTON 2 #######################
+- Send updateContext to chosen student: LEDS(1001), Buzzer(1), and source_alarm(LYK)
+- RELEASE ALARM_SEND SEMAPHORE
+
+
+#################### /BUTTON 2/ ###############################
+
+
+
+
+############### ALARM MODE/RESET ALARM ############
+
+
+- If alarm is activated from any mode, it turns off after 5 seconds and returns to the mode it was in previously.
+- Optional?: Indicate reason for alarm, temperature if local, and name of caller if online.
+
+
+################# /ALARM/ ##############################
+
+
+
